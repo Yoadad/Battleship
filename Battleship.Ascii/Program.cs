@@ -79,8 +79,8 @@ namespace Battleship.Ascii
                 }
                 if (isHit)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.Beep();
-
                     Console.WriteLine(@"                \         .  ./");
                     Console.WriteLine(@"              \      .:"";'.:..""   /");
                     Console.WriteLine(@"                  (M^^.^~~:.'"").");
@@ -89,6 +89,7 @@ namespace Battleship.Ascii
                     Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
                     Console.WriteLine(@"                 -\  \     /  /-");
                     Console.WriteLine(@"                   \  \   /  /");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 Console.WriteLine(isHit ? "Yeah ! Nice hit !" : "Miss");
@@ -102,12 +103,14 @@ namespace Battleship.Ascii
                 //TODO: Validate gammer looses
                 if (isLoose)
                 {
+                    Console.ForegroundColor = ConsoleColor.re;
                     Console.WriteLine("You loose!! :(");
                     Console.ReadKey();
                     break;
                 }
                 if (isHit)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.Beep();
 
                     Console.WriteLine(@"                \         .  ./");
@@ -118,6 +121,7 @@ namespace Battleship.Ascii
                     Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
                     Console.WriteLine(@"                 -\  \     /  /-");
                     Console.WriteLine(@"                   \  \   /  /");
+                    Console.ForegroundColor = ConsoleColor.White;
 
                 }
             }
