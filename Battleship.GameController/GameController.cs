@@ -13,6 +13,33 @@ namespace Battleship.GameController
     /// </summary>
     public class GameController
     {
+        public static bool CheckIsWin(IEnumerable<Ship> ships, IEnumerable<Position> shots)
+        {
+            var result = false;
+            var hits = 0;
+            if (ships == null)
+            {
+                throw new ArgumentNullException("ships");
+            }
+
+            if (shots == null)
+            {
+                throw new ArgumentNullException("shot");
+            }
+
+            foreach (var ship in ships)
+            {
+                foreach (var shot in shots)
+                {
+                    if (ship.Positions.Any(p => p.Equals(shot)))
+                    {
+                        hits++;
+                    }
+                }
+            }
+            result = hits == 17;
+            return result;
+        }
         /// <summary>
         /// Checks the is hit.
         /// </summary>
