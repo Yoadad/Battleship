@@ -14,9 +14,8 @@ namespace Battleship.Ascii
 
         private static List<Ship> enemyFleet;
 
-        private static List<Position> shots;
-
-        private static List<Position> enemyShots;
+        private static List<Position> shots = new List<Position>();
+        private static List<Position> enemyShots = new List<Position>();
 
         static void Main()
         {
@@ -64,6 +63,12 @@ namespace Battleship.Ascii
                 var isHit = GameController.CheckIsHit(enemyFleet, position);
                 var isWin = GameController.CheckIsWin(enemyFleet, shots);
                 //TODO: Validate gammer wins
+                if (isWin)
+                {
+                    Console.WriteLine("You win!! :D");
+                    Console.ReadKey();
+                    break;
+                }
                 if (isHit)
                 {
                     Console.Beep();
@@ -87,7 +92,12 @@ namespace Battleship.Ascii
                 Console.WriteLine("Computer shot in {0}{1} and {2}", position.Column, position.Row, isHit ? "has hit your ship !" : "miss");
                 var isLoose = GameController.CheckIsWin(myFleet, enemyShots);
                 //TODO: Validate gammer looses
-
+                if (isLoose)
+                {
+                    Console.WriteLine("You loose!! :(");
+                    Console.ReadKey();
+                    break;
+                }
                 if (isHit)
                 {
                     Console.Beep();
@@ -115,12 +125,16 @@ namespace Battleship.Ascii
 
         private static Position GetRandomPosition()
         {
-            int rows = 8;
-            int lines = 8;
-            var random = new Random();
-            var letter = (Letters)random.Next(lines);
-            var number = random.Next(rows);
-            var position = new Position(letter, number);
+            var position = new Position(Letters.A, 1);
+            do
+            {
+                int rows = 8;
+                int lines = 8;
+                var random = new Random();
+                var letter = (Letters)random.Next(lines);
+                var number = random.Next(rows);
+                position = new Position(letter, number);
+            } while (enemyShots.Count() > 0 && enemyShots.Any(es => es.Equals(position)));
             return position;
         }
 

@@ -14,7 +14,7 @@
     {
 
         /// <summary>
-        /// The should win the game.
+        /// Should win the game.
         /// </summary>
         [TestMethod]
         public void ShouldWinTheGame()
