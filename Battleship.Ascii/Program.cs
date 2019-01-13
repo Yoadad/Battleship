@@ -54,6 +54,8 @@ namespace Battleship.Ascii
             Console.WriteLine(@"   \    \_/");
             Console.WriteLine(@"    """"""""");
 
+            bool gameEnd = false;
+
             do
             {
                 Console.WriteLine();
@@ -62,7 +64,13 @@ namespace Battleship.Ascii
                 var position = ParsePosition(Console.ReadLine());
                 shots.Add(position);
                 var isHit = GameController.CheckIsHit(enemyFleet, position);
+
+
+
                 var isWin = GameController.CheckIsWin(enemyFleet, shots);
+
+
+
                 //TODO: Validate gammer wins
                 if (isHit)
                 {
@@ -80,30 +88,99 @@ namespace Battleship.Ascii
 
                 Console.WriteLine(isHit ? "Yeah ! Nice hit !" : "Miss");
 
-                position = GetRandomPosition();
-                enemyShots.Add(position);
-                isHit = GameController.CheckIsHit(myFleet, position);
-                Console.WriteLine();
-                Console.WriteLine("Computer shot in {0}{1} and {2}", position.Column, position.Row, isHit ? "has hit your ship !" : "miss");
-                var isLoose = GameController.CheckIsWin(myFleet, enemyShots);
-                //TODO: Validate gammer looses
-
-                if (isHit)
+                if (isWin)
                 {
-                    Console.Beep();
+                    showWinnerMessage();
+                    //message                     
+                    break;
+                }
+                else
+                {
 
-                    Console.WriteLine(@"                \         .  ./");
-                    Console.WriteLine(@"              \      .:"";'.:..""   /");
-                    Console.WriteLine(@"                  (M^^.^~~:.'"").");
-                    Console.WriteLine(@"            -   (/  .    . . \ \)  -");
-                    Console.WriteLine(@"               ((| :. ~ ^  :. .|))");
-                    Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
-                    Console.WriteLine(@"                 -\  \     /  /-");
-                    Console.WriteLine(@"                   \  \   /  /");
+                    position = GetRandomPosition();
+                    enemyShots.Add(position);
+                    isHit = GameController.CheckIsHit(myFleet, position);
+                    Console.WriteLine();
+                    Console.WriteLine("Computer shot in {0}{1} and {2}", position.Column, position.Row, isHit ? "has hit your ship !" : "miss");
+
+                    //TODO: Validate gammer looses
+
+                    if (isHit)
+                    {
+                        Console.Beep();
+
+                        Console.WriteLine(@"                \         .  ./");
+                        Console.WriteLine(@"              \      .:"";'.:..""   /");
+                        Console.WriteLine(@"                  (M^^.^~~:.'"").");
+                        Console.WriteLine(@"            -   (/  .    . . \ \)  -");
+                        Console.WriteLine(@"               ((| :. ~ ^  :. .|))");
+                        Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
+                        Console.WriteLine(@"                 -\  \     /  /-");
+                        Console.WriteLine(@"                   \  \   /  /");
+
+                    }
+
+                    var isLoose = GameController.CheckIsWin(myFleet, enemyShots);
+
+                    if (isLoose)
+                    {
+                        showLooserMessage();
+                        break;
+                    }
 
                 }
+
             }
             while (true);
+        }
+
+        internal static void showWinnerMessage()
+        {
+            Console.WriteLine(@"                                                                                        ,---,    ,---,  ");
+            Console.WriteLine(@"                                                                                          ,`--.' | ,`--.' |  ");
+            Console.WriteLine(@"                                                        .---.                             |   :  : |   :  :  ");
+            Console.WriteLine(@"        ,---,                                          /. ./|  ,--,                       '   '  ; '   '  ;  ");
+            Console.WriteLine(@"       /_ ./|   ,---.           ,--,               .--'.  ' ;,--.'|         ,---,         |   |  | |   |  |  ");
+            Console.WriteLine(@" ,---, |  ' :  '   ,'\        ,'_ /|              /__./ \ : ||  |,      ,-+-. /  |        '   :  ; '   :  ;  ");
+            Console.WriteLine(@"/___/ \.  : | /   /   |  .--. |  | :          .--'.  '   \' .`--'_     ,--.'|'   |        |   |  ' |   |  '  ");
+            Console.WriteLine(@" .  \  \ ,' '.   ; ,. :,'_ /| :  . |         /___/ \ |    ' ',' ,'|   |   |  ,/' |        '   |  | |   :  |  ");
+            Console.WriteLine(@"  \  ;  `  ,''   | |: :|  ' | |  . .         ;   \  \;      :'  | |   |   | /  | |        ;   |  ; ;   |  ;  ");
+            Console.WriteLine(@"   \  \    ' '   | .; :|  | ' |  | |          \   ;  `      ||  | :   |   | |  | |        `---'. | `---'. |  ");
+            Console.WriteLine(@"    '  \   | |   :    |:  | : ;  ; |           .   \    .\  ;'  : |__ |   | |  |/          `--..`;  `--..`;  ");
+            Console.WriteLine(@"     \  ;  ;  \   \  / '  :  `--'   \           \   \   ' \ ||  | '.'||   | |--'          .--,_    .--,_     ");
+            Console.WriteLine(@"      :  \  \  `----'  :  ,      .-./            :   '  |--* ;  :    ;|   |/              |    |`. |    |`.  ");
+            Console.WriteLine(@"       \  ' ;           `--`----'                 \   \ ;    |  ,   / '---'               `-- -`, ;`-- -`,   ");
+            Console.WriteLine(@"        `--`                                       '---*-- -`-'                           '-- -`   '---*     ");
+
+
+
+        }
+        internal static void showLooserMessage()
+        {
+            Console.WriteLine(@"                                                ,--,                                                        ,---,    ,---,  ");
+            Console.WriteLine(@"                                             ,---.'|                                                     ,`--.' | ,`--.' |  ");
+            Console.WriteLine(@"                                             |   | :                                                     |   :  : |   :  :  ");
+            Console.WriteLine(@"        ,---,                                :   : |                                                     '   '  ; '   '  ;  ");
+            Console.WriteLine(@"       /_ ./|   ,---.           ,--,         |   ' :      ,---.     ,---.                                |   |  | |   |  |  ");
+            Console.WriteLine(@" ,---, |  ' :  '   ,'\        ,'_ /|         ;   ; '     '   ,'\   '   ,'\   .--.--.                     '   :  ; '   :  ;  ");
+            Console.WriteLine(@"/___/ \.  : | /   /   |  .--. |  | :         '   | |__  /   /   | /   /   | /  /    '     ,---.          |   |  ' |   |  '  ");
+            Console.WriteLine(@" .  \  \ ,' '.   ; ,. :,'_ /| :  . |         |   | :.'|.   ; ,. :.   ; ,. :|  :  /`./    /     \         '   :  | '   :  |  ");
+            Console.WriteLine(@"  \  ;  `  ,''   | |: :|  ' | |  . .         '   :    ;'   | |: :'   | |: :|  :  ;_     /    /  |        ;   |  ; ;   |  ;  ");
+            Console.WriteLine(@"   \  \    ' '   | .; :|  | ' |  | |         |   |  ./ '   | .; :'   | .; : \  \    `. .    ' / |        `---'. | `---'. |  ");
+            Console.WriteLine(@"    '  \   | |   :    |:  | : ;  ; |         ;   : ;   |   :    ||   :    |  `----.   \'   ;   /|         `--..`;  `--..`;  ");
+            Console.WriteLine(@"     \  ;  ;  \   \  / '  :  `--'   \        |   ,/     \   \  /  \   \  /  /  /`--'  /'   |  / |        .--,_    .--,_     ");
+            Console.WriteLine(@"      :  \  \  `----'  :  ,      .-./        '---'       `----'    `----'  '--'.     / |   :    |        |    |`. |    |`.  ");
+            Console.WriteLine(@"       \  ' ;           `--`----'                                            `--'---'   \   \  /         `-- -`, ;`-- -`, ; ");
+            Console.WriteLine(@"        `--`                                                                             `----'            '---`"   '---`"  ");
+
+        }
+
+        internal static string looserMessage()
+        {
+
+            var message = "You loose";
+
+            return message;
         }
 
         internal static Position ParsePosition(string input)
