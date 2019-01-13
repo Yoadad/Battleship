@@ -14,6 +14,10 @@ namespace Battleship.Ascii
 
         private static List<Ship> enemyFleet;
 
+        private static List<Position> shots;
+
+        private static List<Position> enemyShots;
+
         static void Main()
         {
             Console.WriteLine("                                     |__");
@@ -56,7 +60,10 @@ namespace Battleship.Ascii
                 Console.WriteLine("Player, it's your turn");
                 Console.WriteLine("Enter coordinates for your shot :");
                 var position = ParsePosition(Console.ReadLine());
+                shots.Add(position);
                 var isHit = GameController.CheckIsHit(enemyFleet, position);
+                var isWin = GameController.CheckIsWin(enemyFleet, shots);
+                //TODO: Validate gammer wins
                 if (isHit)
                 {
                     Console.Beep();
@@ -74,9 +81,13 @@ namespace Battleship.Ascii
                 Console.WriteLine(isHit ? "Yeah ! Nice hit !" : "Miss");
 
                 position = GetRandomPosition();
+                enemyShots.Add(position);
                 isHit = GameController.CheckIsHit(myFleet, position);
                 Console.WriteLine();
                 Console.WriteLine("Computer shot in {0}{1} and {2}", position.Column, position.Row, isHit ? "has hit your ship !" : "miss");
+                var isLoose = GameController.CheckIsWin(myFleet, enemyShots);
+                //TODO: Validate gammer looses
+
                 if (isHit)
                 {
                     Console.Beep();
