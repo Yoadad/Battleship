@@ -120,27 +120,30 @@ namespace Battleship.Ascii
             InitializeEnemyFleet();
         }
 
-        private static void InitializeMyFleet()
-        {
-            myFleet = GameController.InitializeShips().ToList();
-            Console.WriteLine("Please position your fleet (Game board size is from A to H and 1 to 8) :");
-            foreach (var ship in myFleet)
+      private static void InitializeMyFleet()
+      {
+         myFleet = GameController.InitializeShips().ToList();
+
+         Console.WriteLine("Please position your fleet (Game board size is from A to H and 1 to 8) :");
+
+         foreach (var ship in myFleet)
+         {
+            Console.WriteLine();
+            Console.WriteLine("Please enter the positions for the {0} (size: {1})", ship.Name, ship.Size);
+
+                var i = 1;
+
+            while(i <= ship.Size)
             {
-                Console.WriteLine();
-                Console.WriteLine("Please enter the positions for the {0} (size: {1})", ship.Name, ship.Size);
-                for (var i = 1; i <= ship.Size; i++)
-                {
-                    Console.WriteLine("Enter position {0} of {1} (i.e A3):", i, ship.Size);
-                    var input = Console.ReadLine();
-                    while (!IsValidInput(input))
+               Console.WriteLine("Enter position {0} of {1} (i.e A3):", i, ship.Size);
+                    if (ship.AddPosition(Console.ReadLine()))
                     {
-                        Console.WriteLine("The input is wrong, please try again position {0} of {1} (i.e A3):", i, ship.Size);
-                        input = Console.ReadLine();
+                        i++;
                     }
-                    ship.AddPosition(input);
-                }
             }
-        }
+
+         }
+      }
 
         private static bool IsValidInput(string input)
         {

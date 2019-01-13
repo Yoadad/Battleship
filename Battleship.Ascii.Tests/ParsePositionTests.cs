@@ -16,5 +16,13 @@ namespace Battleship.Ascii.Tests
 
          Assert.AreEqual(expected, actual);
       }
-   }
+
+        //[TestMethod]
+        //public void IntoLettersPermit()
+        //{
+        //    var actual = Program.ParsePosition("Q1");
+        //    Assert.IsTrue(actual);
+        //}
+
+    }
 }
