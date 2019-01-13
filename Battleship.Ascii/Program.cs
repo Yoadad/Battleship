@@ -73,7 +73,7 @@ namespace Battleship.Ascii
                 //TODO: Validate gammer wins
                 if (isWin)
                 {
-                    Console.WriteLine("You win!! :D");
+                    showWinnerMessage();
                     Console.ReadKey();
                     break;
                 }
@@ -104,7 +104,7 @@ namespace Battleship.Ascii
                 if (isLoose)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You loose!! :(");
+                    showLooserMessage();
                     Console.ForegroundColor = ConsoleColor.White;
 
 
@@ -217,5 +217,47 @@ namespace Battleship.Ascii
             enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 5 });
             enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 6 });
         }
+
+        internal static void showLooserMessage()
+        {
+            Console.WriteLine(@"                                                ,--,                                                        ,---,    ,---,  ");
+            Console.WriteLine(@"                                             ,---.'|                                                     ,`--.' | ,`--.' |  ");
+            Console.WriteLine(@"                                             |   | :                                                     |   :  : |   :  :  ");
+            Console.WriteLine(@"        ,---,                                :   : |                                                     '   '  ; '   '  ;  ");
+            Console.WriteLine(@"       /_ ./|   ,---.           ,--,         |   ' :      ,---.     ,---.                                |   |  | |   |  |  ");
+            Console.WriteLine(@" ,---, |  ' :  '   ,'\        ,'_ /|         ;   ; '     '   ,'\   '   ,'\   .--.--.                     '   :  ; '   :  ;  ");
+            Console.WriteLine(@"/___/ \.  : | /   /   |  .--. |  | :         '   | |__  /   /   | /   /   | /  /    '     ,---.          |   |  ' |   |  '  ");
+            Console.WriteLine(@" .  \  \ ,' '.   ; ,. :,'_ /| :  . |         |   | :.'|.   ; ,. :.   ; ,. :|  :  /`./    /     \         '   :  | '   :  |  ");
+            Console.WriteLine(@"  \  ;  `  ,''   | |: :|  ' | |  . .         '   :    ;'   | |: :'   | |: :|  :  ;_     /    /  |        ;   |  ; ;   |  ;  ");
+            Console.WriteLine(@"   \  \    ' '   | .; :|  | ' |  | |         |   |  ./ '   | .; :'   | .; : \  \    `. .    ' / |        `---'. | `---'. |  ");
+            Console.WriteLine(@"    '  \   | |   :    |:  | : ;  ; |         ;   : ;   |   :    ||   :    |  `----.   \'   ;   /|         `--..`;  `--..`;  ");
+            Console.WriteLine(@"     \  ;  ;  \   \  / '  :  `--'   \        |   ,/     \   \  /  \   \  /  /  /`--'  /'   |  / |        .--,_    .--,_     ");
+            Console.WriteLine(@"      :  \  \  `----'  :  ,      .-./        '---'       `----'    `----'  '--'.     / |   :    |        |    |`. |    |`.  ");
+            Console.WriteLine(@"       \  ' ;           `--`----'                                            `--'---'   \   \  /         `-- -`, ;`-- -`, ; ");
+            Console.WriteLine(@"        `--`                                                                             `----'           '---`    '---`   ");
+
+        }
+        internal static void showWinnerMessage()
+        {
+            Console.WriteLine(@"                                                                                        ,---,    ,---,  ");
+            Console.WriteLine(@"                                                                                          ,`--.' | ,`--.' |  ");
+            Console.WriteLine(@"                                                        .---.                             |   :  : |   :  :  ");
+            Console.WriteLine(@"        ,---,                                          /. ./|  ,--,                       '   '  ; '   '  ;  ");
+            Console.WriteLine(@"       /_ ./|   ,---.           ,--,               .--'.  ' ;,--.'|         ,---,         |   |  | |   |  |  ");
+            Console.WriteLine(@" ,---, |  ' :  '   ,'\        ,'_ /|              /__./ \ : ||  |,      ,-+-. /  |        '   :  ; '   :  ;  ");
+            Console.WriteLine(@"/___/ \.  : | /   /   |  .--. |  | :          .--'.  '   \' .`--'_     ,--.'|'   |        |   |  ' |   |  '  ");
+            Console.WriteLine(@" .  \  \ ,' '.   ; ,. :,'_ /| :  . |         /___/ \ |    ' ',' ,'|   |   |  ,/' |        '   |  | |   :  |  ");
+            Console.WriteLine(@"  \  ;  `  ,''   | |: :|  ' | |  . .         ;   \  \;      :'  | |   |   | /  | |        ;   |  ; ;   |  ;  ");
+            Console.WriteLine(@"   \  \    ' '   | .; :|  | ' |  | |          \   ;  `      ||  | :   |   | |  | |        `---'. | `---'. |  ");
+            Console.WriteLine(@"    '  \   | |   :    |:  | : ;  ; |           .   \    .\  ;'  : |__ |   | |  |/          `--..`;  `--..`;  ");
+            Console.WriteLine(@"     \  ;  ;  \   \  / '  :  `--'   \           \   \   ' \ ||  | '.'||   | |--'          .--,_    .--,_     ");
+            Console.WriteLine(@"      :  \  \  `----'  :  ,      .-./            :   '  |--* ;  :    ;|   |/              |    |`. |    |`.  ");
+            Console.WriteLine(@"       \  ' ;           `--`----'                 \   \ ;    |  ,   / '---'               `-- -`, ;`-- -`,   ");
+            Console.WriteLine(@"        `--`                                       '---*-- -`-'                           '-- -`   '---*     ");
+
+
+
+        }
     }
+   
 }

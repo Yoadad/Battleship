@@ -61,6 +61,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GameControllerTests\CheckIsHitTests.cs" />
+    <Compile Include="GameControllerTests\CheckWinnerTests.cs" />
     <Compile Include="GameControllerTests\IsShipValidTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
