@@ -58,7 +58,15 @@ namespace Battleship.Ascii
                 Console.WriteLine();
                 Console.WriteLine("Player, it's your turn");
                 Console.WriteLine("Enter coordinates for your shot :");
-                var position = ParsePosition(Console.ReadLine());
+                var input = Console.ReadLine();
+                while (!IsValidInput(input))
+                {
+                    Console.WriteLine("The coordinates are wrong, please try again:");
+                    input = Console.ReadLine();
+                }
+                var position = ParsePosition(input);
+
+
                 shots.Add(position);
                 var isHit = GameController.CheckIsHit(enemyFleet, position);
                 var isWin = GameController.CheckIsWin(enemyFleet, shots);
@@ -71,8 +79,8 @@ namespace Battleship.Ascii
                 }
                 if (isHit)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.Beep();
-
                     Console.WriteLine(@"                \         .  ./");
                     Console.WriteLine(@"              \      .:"";'.:..""   /");
                     Console.WriteLine(@"                  (M^^.^~~:.'"").");
@@ -81,6 +89,7 @@ namespace Battleship.Ascii
                     Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
                     Console.WriteLine(@"                 -\  \     /  /-");
                     Console.WriteLine(@"                   \  \   /  /");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 Console.WriteLine(isHit ? "Yeah ! Nice hit !" : "Miss");
@@ -94,12 +103,14 @@ namespace Battleship.Ascii
                 //TODO: Validate gammer looses
                 if (isLoose)
                 {
+                    Console.ForegroundColor = ConsoleColor.re;
                     showLooserMessage();
                     Console.ReadKey();
                     break;
                 }
                 if (isHit)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.Beep();
 
                     Console.WriteLine(@"                \         .  ./");
@@ -110,6 +121,7 @@ namespace Battleship.Ascii
                     Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
                     Console.WriteLine(@"                 -\  \     /  /-");
                     Console.WriteLine(@"                   \  \   /  /");
+                    Console.ForegroundColor = ConsoleColor.White;
 
                 }
             }
@@ -132,7 +144,7 @@ namespace Battleship.Ascii
                 int lines = 8;
                 var random = new Random();
                 var letter = (Letters)random.Next(lines);
-                var number = random.Next(rows);
+                var number = random.Next(rows) + 1;
                 position = new Position(letter, number);
             } while (enemyShots.Count() > 0 && enemyShots.Any(es => es.Equals(position)));
             return position;
