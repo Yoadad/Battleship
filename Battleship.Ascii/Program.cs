@@ -103,9 +103,13 @@ namespace Battleship.Ascii
                 //TODO: Validate gammer looses
                 if (isLoose)
                 {
-                    Console.ForegroundColor = ConsoleColor.re;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You loose!! :(");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+
                     Console.ReadKey();
+                    
                     break;
                 }
                 if (isHit)
