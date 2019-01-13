@@ -14,9 +14,8 @@ namespace Battleship.Ascii
 
         private static List<Ship> enemyFleet;
 
-        private static List<Position> shots;
-
-        private static List<Position> enemyShots;
+        private static List<Position> shots = new List<Position>();
+        private static List<Position> enemyShots = new List<Position>();
 
         static void Main()
         {
@@ -54,8 +53,6 @@ namespace Battleship.Ascii
             Console.WriteLine(@"   \    \_/");
             Console.WriteLine(@"    """"""""");
 
-            bool gameEnd = false;
-
             do
             {
                 Console.WriteLine();
@@ -64,14 +61,14 @@ namespace Battleship.Ascii
                 var position = ParsePosition(Console.ReadLine());
                 shots.Add(position);
                 var isHit = GameController.CheckIsHit(enemyFleet, position);
-
-
-
                 var isWin = GameController.CheckIsWin(enemyFleet, shots);
-
-
-
                 //TODO: Validate gammer wins
+                if (isWin)
+                {
+                    Console.WriteLine("You win!! :D");
+                    Console.ReadKey();
+                    break;
+                }
                 if (isHit)
                 {
                     Console.Beep();
@@ -88,99 +85,35 @@ namespace Battleship.Ascii
 
                 Console.WriteLine(isHit ? "Yeah ! Nice hit !" : "Miss");
 
-                if (isWin)
+                position = GetRandomPosition();
+                enemyShots.Add(position);
+                isHit = GameController.CheckIsHit(myFleet, position);
+                Console.WriteLine();
+                Console.WriteLine("Computer shot in {0}{1} and {2}", position.Column, position.Row, isHit ? "has hit your ship !" : "miss");
+                var isLoose = GameController.CheckIsWin(myFleet, enemyShots);
+                //TODO: Validate gammer looses
+                if (isLoose)
                 {
-                    showWinnerMessage();
-                    //message                     
+                    Console.WriteLine("You loose!! :(");
+                    Console.ReadKey();
                     break;
                 }
-                else
+                if (isHit)
                 {
+                    Console.Beep();
 
-                    position = GetRandomPosition();
-                    enemyShots.Add(position);
-                    isHit = GameController.CheckIsHit(myFleet, position);
-                    Console.WriteLine();
-                    Console.WriteLine("Computer shot in {0}{1} and {2}", position.Column, position.Row, isHit ? "has hit your ship !" : "miss");
-
-                    //TODO: Validate gammer looses
-
-                    if (isHit)
-                    {
-                        Console.Beep();
-
-                        Console.WriteLine(@"                \         .  ./");
-                        Console.WriteLine(@"              \      .:"";'.:..""   /");
-                        Console.WriteLine(@"                  (M^^.^~~:.'"").");
-                        Console.WriteLine(@"            -   (/  .    . . \ \)  -");
-                        Console.WriteLine(@"               ((| :. ~ ^  :. .|))");
-                        Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
-                        Console.WriteLine(@"                 -\  \     /  /-");
-                        Console.WriteLine(@"                   \  \   /  /");
-
-                    }
-
-                    var isLoose = GameController.CheckIsWin(myFleet, enemyShots);
-
-                    if (isLoose)
-                    {
-                        showLooserMessage();
-                        break;
-                    }
+                    Console.WriteLine(@"                \         .  ./");
+                    Console.WriteLine(@"              \      .:"";'.:..""   /");
+                    Console.WriteLine(@"                  (M^^.^~~:.'"").");
+                    Console.WriteLine(@"            -   (/  .    . . \ \)  -");
+                    Console.WriteLine(@"               ((| :. ~ ^  :. .|))");
+                    Console.WriteLine(@"            -   (\- |  \ /  |  /)  -");
+                    Console.WriteLine(@"                 -\  \     /  /-");
+                    Console.WriteLine(@"                   \  \   /  /");
 
                 }
-
             }
             while (true);
-        }
-
-        internal static void showWinnerMessage()
-        {
-            Console.WriteLine(@"                                                                                        ,---,    ,---,  ");
-            Console.WriteLine(@"                                                                                          ,`--.' | ,`--.' |  ");
-            Console.WriteLine(@"                                                        .---.                             |   :  : |   :  :  ");
-            Console.WriteLine(@"        ,---,                                          /. ./|  ,--,                       '   '  ; '   '  ;  ");
-            Console.WriteLine(@"       /_ ./|   ,---.           ,--,               .--'.  ' ;,--.'|         ,---,         |   |  | |   |  |  ");
-            Console.WriteLine(@" ,---, |  ' :  '   ,'\        ,'_ /|              /__./ \ : ||  |,      ,-+-. /  |        '   :  ; '   :  ;  ");
-            Console.WriteLine(@"/___/ \.  : | /   /   |  .--. |  | :          .--'.  '   \' .`--'_     ,--.'|'   |        |   |  ' |   |  '  ");
-            Console.WriteLine(@" .  \  \ ,' '.   ; ,. :,'_ /| :  . |         /___/ \ |    ' ',' ,'|   |   |  ,/' |        '   |  | |   :  |  ");
-            Console.WriteLine(@"  \  ;  `  ,''   | |: :|  ' | |  . .         ;   \  \;      :'  | |   |   | /  | |        ;   |  ; ;   |  ;  ");
-            Console.WriteLine(@"   \  \    ' '   | .; :|  | ' |  | |          \   ;  `      ||  | :   |   | |  | |        `---'. | `---'. |  ");
-            Console.WriteLine(@"    '  \   | |   :    |:  | : ;  ; |           .   \    .\  ;'  : |__ |   | |  |/          `--..`;  `--..`;  ");
-            Console.WriteLine(@"     \  ;  ;  \   \  / '  :  `--'   \           \   \   ' \ ||  | '.'||   | |--'          .--,_    .--,_     ");
-            Console.WriteLine(@"      :  \  \  `----'  :  ,      .-./            :   '  |--* ;  :    ;|   |/              |    |`. |    |`.  ");
-            Console.WriteLine(@"       \  ' ;           `--`----'                 \   \ ;    |  ,   / '---'               `-- -`, ;`-- -`,   ");
-            Console.WriteLine(@"        `--`                                       '---*-- -`-'                           '-- -`   '---*     ");
-
-
-
-        }
-        internal static void showLooserMessage()
-        {
-            Console.WriteLine(@"                                                ,--,                                                        ,---,    ,---,  ");
-            Console.WriteLine(@"                                             ,---.'|                                                     ,`--.' | ,`--.' |  ");
-            Console.WriteLine(@"                                             |   | :                                                     |   :  : |   :  :  ");
-            Console.WriteLine(@"        ,---,                                :   : |                                                     '   '  ; '   '  ;  ");
-            Console.WriteLine(@"       /_ ./|   ,---.           ,--,         |   ' :      ,---.     ,---.                                |   |  | |   |  |  ");
-            Console.WriteLine(@" ,---, |  ' :  '   ,'\        ,'_ /|         ;   ; '     '   ,'\   '   ,'\   .--.--.                     '   :  ; '   :  ;  ");
-            Console.WriteLine(@"/___/ \.  : | /   /   |  .--. |  | :         '   | |__  /   /   | /   /   | /  /    '     ,---.          |   |  ' |   |  '  ");
-            Console.WriteLine(@" .  \  \ ,' '.   ; ,. :,'_ /| :  . |         |   | :.'|.   ; ,. :.   ; ,. :|  :  /`./    /     \         '   :  | '   :  |  ");
-            Console.WriteLine(@"  \  ;  `  ,''   | |: :|  ' | |  . .         '   :    ;'   | |: :'   | |: :|  :  ;_     /    /  |        ;   |  ; ;   |  ;  ");
-            Console.WriteLine(@"   \  \    ' '   | .; :|  | ' |  | |         |   |  ./ '   | .; :'   | .; : \  \    `. .    ' / |        `---'. | `---'. |  ");
-            Console.WriteLine(@"    '  \   | |   :    |:  | : ;  ; |         ;   : ;   |   :    ||   :    |  `----.   \'   ;   /|         `--..`;  `--..`;  ");
-            Console.WriteLine(@"     \  ;  ;  \   \  / '  :  `--'   \        |   ,/     \   \  /  \   \  /  /  /`--'  /'   |  / |        .--,_    .--,_     ");
-            Console.WriteLine(@"      :  \  \  `----'  :  ,      .-./        '---'       `----'    `----'  '--'.     / |   :    |        |    |`. |    |`.  ");
-            Console.WriteLine(@"       \  ' ;           `--`----'                                            `--'---'   \   \  /         `-- -`, ;`-- -`, ; ");
-            Console.WriteLine(@"        `--`                                                                             `----'            '---`"   '---`"  ");
-
-        }
-
-        internal static string looserMessage()
-        {
-
-            var message = "You loose";
-
-            return message;
         }
 
         internal static Position ParsePosition(string input)
@@ -192,12 +125,16 @@ namespace Battleship.Ascii
 
         private static Position GetRandomPosition()
         {
-            int rows = 8;
-            int lines = 8;
-            var random = new Random();
-            var letter = (Letters)random.Next(lines);
-            var number = random.Next(rows);
-            var position = new Position(letter, number);
+            var position = new Position(Letters.A, 1);
+            do
+            {
+                int rows = 8;
+                int lines = 8;
+                var random = new Random();
+                var letter = (Letters)random.Next(lines);
+                var number = random.Next(rows);
+                position = new Position(letter, number);
+            } while (enemyShots.Count() > 0 && enemyShots.Any(es => es.Equals(position)));
             return position;
         }
 
@@ -208,30 +145,29 @@ namespace Battleship.Ascii
             InitializeEnemyFleet();
         }
 
-      private static void InitializeMyFleet()
-      {
-         myFleet = GameController.InitializeShips().ToList();
-
-         Console.WriteLine("Please position your fleet (Game board size is from A to H and 1 to 8) :");
-
-         foreach (var ship in myFleet)
-         {
-            Console.WriteLine();
-            Console.WriteLine("Please enter the positions for the {0} (size: {1})", ship.Name, ship.Size);
-
-                var i = 1;
-
-            while(i <= ship.Size)
+        private static void InitializeMyFleet()
+        {
+            myFleet = GameController.InitializeShips().ToList();
+            Console.WriteLine("Please position your fleet (Game board size is from A to H and 1 to 8) :");
+            foreach (var ship in myFleet)
             {
-               Console.WriteLine("Enter position {0} of {1} (i.e A3):", i, ship.Size);
-                    if (ship.AddPosition(Console.ReadLine()))
+                Console.WriteLine();
+                Console.WriteLine("Please enter the positions for the {0} (size: {1})", ship.Name, ship.Size);
+                for (var i = 1; i <= ship.Size; i++)
+                {
+                    Console.WriteLine("Enter position {0} of {1} (i.e A3):", i, ship.Size);
+                    var input = Console.ReadLine();
+                    while (!IsValidInput(input))
                     {
-                        i++;
+                        Console.WriteLine("The input is wrong, please try again position {0} of {1} (i.e A3):", i, ship.Size);
+                        input = Console.ReadLine();
                     }
+                    ship.AddPosition(input);
+                }
             }
+        }
 
-         }
-      }
+
 
         private static bool IsValidInput(string input)
         {
