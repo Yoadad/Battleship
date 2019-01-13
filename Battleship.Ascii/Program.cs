@@ -19,6 +19,8 @@ namespace Battleship.Ascii
 
         static void Main()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
             Console.WriteLine("                                     |__");
             Console.WriteLine(@"                                     |\/");
             Console.WriteLine("                                     ---");
@@ -34,6 +36,8 @@ namespace Battleship.Ascii
             Console.WriteLine(@" \_________________________________________________________________________|");
             Console.WriteLine();
 
+            Console.ForegroundColor = ConsoleColor.White;
+
             InitializeGame();
 
             StartGame();
@@ -41,6 +45,7 @@ namespace Battleship.Ascii
 
         private static void StartGame()
         {
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.Clear();
             Console.WriteLine("                  __");
             Console.WriteLine(@"                 /  \");
@@ -52,7 +57,7 @@ namespace Battleship.Ascii
             Console.WriteLine(@"  |     /_\'");
             Console.WriteLine(@"   \    \_/");
             Console.WriteLine(@"    """"""""");
-
+            Console.ForegroundColor = ConsoleColor.White;
             do
             {
                 Console.WriteLine();
@@ -114,7 +119,7 @@ namespace Battleship.Ascii
                 }
                 if (isHit)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.Beep();
 
                     Console.WriteLine(@"                \         .  ./");
@@ -220,6 +225,7 @@ namespace Battleship.Ascii
 
         internal static void showLooserMessage()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(@"                                                ,--,                                                        ,---,    ,---,  ");
             Console.WriteLine(@"                                             ,---.'|                                                     ,`--.' | ,`--.' |  ");
             Console.WriteLine(@"                                             |   | :                                                     |   :  : |   :  :  ");
@@ -239,6 +245,7 @@ namespace Battleship.Ascii
         }
         internal static void showWinnerMessage()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(@"                                                                                        ,---,    ,---,  ");
             Console.WriteLine(@"                                                                                          ,`--.' | ,`--.' |  ");
             Console.WriteLine(@"                                                        .---.                             |   :  : |   :  :  ");
@@ -254,8 +261,6 @@ namespace Battleship.Ascii
             Console.WriteLine(@"      :  \  \  `----'  :  ,      .-./            :   '  |--* ;  :    ;|   |/              |    |`. |    |`.  ");
             Console.WriteLine(@"       \  ' ;           `--`----'                 \   \ ;    |  ,   / '---'               `-- -`, ;`-- -`,   ");
             Console.WriteLine(@"        `--`                                       '---*-- -`-'                           '-- -`   '---*     ");
-
-
 
         }
     }
